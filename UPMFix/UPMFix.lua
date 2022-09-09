@@ -6,7 +6,7 @@ function UnitPopupManager:OnUpdate(elapsed)
 	if ( not UnitPopup_HasVisibleMenu() ) then
 		return;
 	end
-	local tempCount, count; 
+	local tempCount, count;
 	for level, dropdownFrame in pairs(OPEN_DROPDOWNMENUS) do
 		if(dropdownFrame) then
 			count = 0;
@@ -30,8 +30,8 @@ function UnitPopupManager:OnUpdate(elapsed)
 						tempCount = count + diff; 
 						if(button.isSubsectionTitle) then 
 							count = count + 1; 
-						elseif (not button.isSubsection) then
-							if (enable) then
+						elseif (not button.isSubsection) and (_G["DropDownList"..level.."Button"..tempCount]) then
+                            if (enable) then
 								UIDropDownMenu_EnableButton(level, tempCount);
 							else 
 								UIDropDownMenu_DisableButton(level, tempCount);
