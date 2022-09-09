@@ -26,11 +26,10 @@ function UnitPopupManager:OnUpdate(elapsed)
 					if(shown) then
 						count = count + 1;
 						local enable = UnitPopupSharedUtil:IsEnabled(button);
+						local text = button:GetText(); 
 						local diff = (level > 1) and 0 or 1;
 						tempCount = count + diff; 
-						if(button.isSubsectionTitle) then 
-							count = count + 1; 
-						elseif (not button.isSubsection) then
+						if(text == not '') then 
 							if (enable) then
 								UIDropDownMenu_EnableButton(level, tempCount);
 							else 
