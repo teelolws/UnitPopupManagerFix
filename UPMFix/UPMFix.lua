@@ -6,10 +6,13 @@ function UnitPopupManager:OnUpdate(elapsed)
 	if ( not UnitPopup_HasVisibleMenu() ) then
 		return;
 	end
-	local tempCount, count;
+	local count, wasLastSeparator;
 	for level, dropdownFrame in pairs(OPEN_DROPDOWNMENUS) do
 		if(dropdownFrame) then
-			count = 0;
+            count = 0
+            if level == 1 then
+                count = 2
+            end
 			local menu = self:GetMenu(dropdownFrame.which);
 			local topLevelButtons = menu:GetButtons(); 
 			local menuButtons; 
@@ -17,7 +20,7 @@ function UnitPopupManager:OnUpdate(elapsed)
 				local nestedMenu = topLevelButtons[UIDROPDOWNMENU_MENU_VALUE];
 				local nestedMenusButtons = nestedMenu and nestedMenu:GetButtons(); 
 				menuButtons = nestedMenusButtons; 
-			else 
+            else
 				menuButtons =  topLevelButtons;
 			end 
 			if (menuButtons) then 
@@ -25,16 +28,22 @@ function UnitPopupManager:OnUpdate(elapsed)
 					local shown = button:CanShow(); 
 					if(shown) then
 						count = count + 1;
-						local enable = UnitPopupSharedUtil:IsEnabled(button);
-						local diff = (level > 1) and 0 or 1;
-						tempCount = count + diff; 
+						local enable = UnitPopupSharedUtil:IsEnabled(button); 
 						if(button.isSubsectionTitle) then 
-							count = count + 1; 
-						elseif (not button.isSubsection) and (_G["DropDownList"..level.."Button"..tempCount]) then
+							if button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_OTHER then
+                                count = count + 1
+                            end
+                        elseif button.isSubsection then
+                            if wasLastSeparator then
+                                count = count - 1
+                            end
+                            wasLastSeparator = true
+						elseif (not button.isSubsection) and (_G["DropDownList"..level.."Button"..count]) then
+                            wasLastSeparator = false
                             if (enable) then
-								UIDropDownMenu_EnableButton(level, tempCount);
+								UIDropDownMenu_EnableButton(level, count);
 							else 
-								UIDropDownMenu_DisableButton(level, tempCount);
+								UIDropDownMenu_DisableButton(level, count);
 							end
 						end		
 					end 
