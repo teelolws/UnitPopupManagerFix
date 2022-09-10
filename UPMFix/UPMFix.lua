@@ -38,7 +38,7 @@ function UnitPopupManager:OnUpdate(elapsed)
                                 count = count - 1
                             end
                             wasLastSeparator = true
-						elseif (not button.isSubsection) and (_G["DropDownList"..level.."Button"..count]) then
+						elseif (not button.isSubsection) then
                             wasLastSeparator = false
                             if (enable) then
 								UIDropDownMenu_EnableButton(level, count);
