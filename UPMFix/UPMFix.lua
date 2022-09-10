@@ -27,10 +27,12 @@ function UnitPopupManager:OnUpdate(elapsed)
                 for index, button in ipairs(menuButtons) do
                     local shown = button:CanShow();
                     if(shown) then
-                        count = count + 1;
+                        if not ((count == 2) and (button:GetText() == RAID_TARGET_ICON)) then
+                            count = count + 1;
+                        end
                         local enable = UnitPopupSharedUtil:IsEnabled(button);
                         if(button.isSubsectionTitle) then 
-                            if button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_OTHER then
+                            if (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_OTHER) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_LOOT) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_INSTANCE) then
                                 count = count + 1
                             end
                         elseif button.isSubsection then
@@ -45,6 +47,7 @@ function UnitPopupManager:OnUpdate(elapsed)
                             else
                                 UIDropDownMenu_DisableButton(level, count);
                             end
+                            --UIDropDownMenu_SetButtonText(level, count, tostring(_G["DropDownList"..level.."Button"..count]:GetText())..count..button:GetText())
                         end
                     end 
                 end
