@@ -32,7 +32,7 @@ function UnitPopupManager:OnUpdate(elapsed)
                         end
                         local enable = UnitPopupSharedUtil:IsEnabled(button);
                         if(button.isSubsectionTitle) then 
-                            if (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_OTHER) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_LOOT) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_INSTANCE) then
+                            if (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_OTHER) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_LOOT) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_INSTANCE) or (button:GetText() == UNIT_FRAME_DROPDOWN_SUBSECTION_TITLE_INTERACT) then
                                 count = count + 1
                             end
                         elseif button.isSubsection then
